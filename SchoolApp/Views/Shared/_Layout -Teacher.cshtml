@@ -1,0 +1,24 @@
+﻿@* @Html.Partial("Partials/_Head")
+
+    <div class="container body-content">
+    @RenderBody()
+    </div> *@
+@Html.Partial("Partials/_Head")
+
+<body class="main-school-app">
+    <div class="two-columns">
+        <div class="column-fixed">
+            @Html.Partial("Partials/_Header")
+            @Html.Partial("Partials/_Footer")
+        </div>
+        <main class="main-school column-content">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

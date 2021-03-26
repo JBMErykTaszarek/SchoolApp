@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SchoolApp.Models.Note>
+
+@{
+    ViewBag.Title = "GetStudentNotes";
+}
+
+<h2>Oceny Studenta</h2>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ForTask)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WchitNote)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ForTask)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WchitNote)
+            </td>
+        </tr>
+    }
+
+</table>

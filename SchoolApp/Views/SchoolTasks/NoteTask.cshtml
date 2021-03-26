@@ -1,0 +1,78 @@
+﻿@model IEnumerable<SchoolApp.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Note Task";
+}
+
+<h2>Oceń Zadanie</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+
+
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Where(x => x.Role == "Student"))
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DropDownList("Ocena", new SelectList(new List<String>() { "A", "B", "C", "D", "E" }), new { id = item.Email })
+            </td>
+
+            <td>
+                <button style="font-size: 16px;background: whitesmoke;" type="button" onclick="AddGrade('@item.Email', '@ViewData["tytul"]')">Dodaj ocenę</button>
+            </td>
+            
+        </tr>
+
+    }
+
+
+
+</table>
+<script>
+    function AddGrade(email,title) {
+
+
+            var note = document.getElementById(email).value;
+            alert(note);
+            $.ajax({
+                type: "POST",
+                url: '/SchoolTasks/UpdateNotes',
+                data:{
+                    email: email,
+                    note: note,
+                    title: title
+                },
+                beforeSend: function () {
+                },
+                success: function (response) {
+                    alert("Ocena została dodana")
+                },
+                error: function (err) {
+                    alert(err.stackTrace);
+                }
+                
+            });
+
+        }
+</script>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}

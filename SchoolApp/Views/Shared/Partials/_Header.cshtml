@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    var Role = Request.Cookies["URole"];
+    
+    bool IsTeacher = Role != null && Role.Value.ToLower() == "teacher";
+    bool IsStudent = Role != null && Role.Value.ToLower() == "student";
+    bool IsParent = Role != null && Role.Value.ToLower() == "parent";
+    bool IsAuth = Request.IsAuthenticated ;
+
+}
+<meta charset="utf-8" />
+<html lang="pl-PL">
+<header class="navbar navbar-inverse navbar-fixed-top">
+
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+
+                @if (IsAuth)
+                {
+
+
+                    if (IsParent)
+                    {
+                        
+                        <li>@Html.ActionLink("Add Your Kid", "AddKid", "Account")</li>
+                        <li>@Html.ActionLink("Add Kid Photo", "Photoadd", "SchoolTasks")</li>
+                        <li>@Html.ActionLink("Kid's Notes", "CheckKidNotes", "SchoolTasks")</li>
+                        <li>@Html.ActionLink("Messages", "GetMyMessages", "Messages")</li>
+                    }
+                    else if (IsTeacher)
+                    {
+                        <li>@Html.ActionLink("Generate Raport", "Generate", "SchoolTasks")</li>
+                        <li>@Html.ActionLink("Tasks", "Index", "SchoolTasks")</li>
+                        <li>@Html.ActionLink("Notes", "AllNotes", "SchoolTasks")</li>
+                        <li>@Html.ActionLink("Send Message", "Create", "Messages")</li>
+                        <li>@Html.ActionLink("Students List", "GetMyStudents", "SchoolTasks")</li>
+
+                    }
+
+                    <li>@Html.Partial("_LoginPartial")</li>
+                }
+                else
+                {
+                    <li>
+                        @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new
+                        {
+                            id =
+                "registerLink"
+                        })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new
+                        {
+                            id =
+                "loginLink"
+                        })
+                    </li>
+                    @*
+            //stare menu
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("About", "About", "Home")</li>
+            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    *@
+                }
+            </ul>
+            @* @Html.Partial("_LoginPartial") *@
+        </div>
+    </div>
+</header>
+</html>

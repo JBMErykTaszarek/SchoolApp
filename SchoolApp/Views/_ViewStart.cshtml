@@ -1,0 +1,18 @@
+﻿@{
+    if (Request.IsAuthenticated)
+    {
+        var Role = Request.Cookies["URole"];
+        if (Role != null && Role.Value.ToLower() == "teacher")
+        {
+            Layout = "~/Views/Shared/_Layout -Teacher.cshtml";
+        }
+        else
+        {
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}

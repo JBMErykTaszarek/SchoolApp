@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@using Microsoft.AspNet.Identity
+
+@{
+    var Role = Request.Cookies["URole"];
+
+    bool IsTeacher = Role != null && Role.Value.ToLower() == "teacher";
+    bool IsStudent = Role != null && Role.Value.ToLower() == "student";
+    bool IsParent = Role != null && Role.Value.ToLower() == "parent";
+    bool IsAuth = Request.IsAuthenticated;
+
+}
+<meta charset="utf-8" />
+<html lang="pl-PL">
+
+    <div class="container">
+
+        <div class="navbar-collapse collapse">
+            @if (IsAuth)
+            {
+
+
+                <h2>Welcome in Eryk's e-School, propably the best ever exist</h2>
+
+                if (IsParent)
+                {
+                    <p> You have @ViewData["count"] messages</p>
+                }
+                else if (IsTeacher)
+                {
+                    <p>Use menu at left, to do some stuff.</p>
+                }
+            }
+            else
+            {
+                    <h2>Welcome in Eryk's e-School, propably the best ever exist</h2>
+            }
+            </div>
+    </div>
+</html>
